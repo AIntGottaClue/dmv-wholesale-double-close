@@ -1,5 +1,6 @@
 export interface Faq { q: string; a: string }
 export interface Step { title: string; text: string }
+export interface Scenario { title: string; intro: string; items: string[]; outro: string }
 export interface City {
   slug: string;
   name: string;
@@ -17,6 +18,10 @@ export interface City {
   why: string[];
   steps: Step[];
   faqs: Faq[];
+  nearby: string[];
+  summaryFees?: boolean;
+  summarySteps?: boolean;
+  scenario?: Scenario;
   blurb: string;
 }
 
@@ -76,6 +81,20 @@ const rawCities: City[] = [
       { q: "What does double close funding cost?", a: "Fees follow the schedule on this page: 1% on deals up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Extra days, a second closing company, or special paperwork carry the additional fees listed in the schedule." },
       { q: "Can you fund EMD or a Morby Method deal?", a: "Yes. Earnest money deposits and Morby Method structures are part of what we fund. Morby Method fees are paid upfront by Zelle or wire, as listed in the fee schedule above." }
     ],
+    nearby: ["arlington", "alexandria", "silver-spring"],
+  summaryFees: true,
+  summarySteps: true,
+  scenario: {
+    title: "Example: how a DC rowhouse deal can play out",
+    intro: "This is an illustrative example, not a real transaction or a promise of results. It shows the moving parts of a typical District rowhouse double closing so you can see where each piece fits.",
+    items: [
+      "You sign a purchase contract on a 1920s brick rowhouse in Petworth at $415,000 with a 21 day closing window.",
+      "Your end buyer, a rehabber who works the rowhouse neighborhoods, commits at $525,000 through the same title company.",
+      "The title company schedules both files back to back. Transactional funding covers your $415,000 purchase side, so none of your own cash goes into the deal. DC recordation and transfer taxes appear as their own line items on each side of the file.",
+      "Your resale closes right after your purchase. The funding and the 1% fee from the published schedule come out of the resale proceeds, and the remaining spread is your margin."
+    ],
+    outro: "The full sequence and the paperwork behind it are covered in how double closing works in the DMV, and the fee math is laid out on the transactional funding fees page."
+  },
     blurb: "The core of the metro. Early 1900s brick rowhouses from Capitol Hill to Petworth, with lower entry points east of the Anacostia River."
   },
   {
@@ -110,6 +129,20 @@ const rawCities: City[] = [
       { q: "What does funding cost?", a: "Fees follow the published schedule: 1% up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Additional days cost 0.2% per day, and using two closing companies carries a 1.75% fee." },
       { q: "Do you fund earnest money deposits?", a: "Yes, EMD funding is available, and we also fund Morby Method structures with fees paid upfront by Zelle or wire." }
     ],
+    nearby: ["alexandria", "mclean", "annandale"],
+  summaryFees: true,
+  summarySteps: true,
+  scenario: {
+    title: "A local checklist for Arlington deals",
+    intro: "Arlington files tend to hinge on price band and property type. Run through this checklist before you set a closing date; the closing team can confirm anything specific to your file.",
+    items: [
+      "Check the price band before you assume the fee. Arlington price points often cross the $500K and $1M lines, where the published schedule steps from 1% to 1.25% and 1.50%, and funding over $1M gets a longer due diligence window.",
+      "Confirm the property type and its paperwork. A large share of Arlington's housing is condominiums, and association documents and resale certificates take lead time that both closings depend on.",
+      "Verify your end buyer's timeline. Arlington's close-in market moves quickly, and a resale that slips past closing day adds the additional day fee from the published schedule for each extra day the funds are out.",
+      "Send both prices, the address and the closing office with your submission early, so larger files start the extra due diligence with time to spare."
+    ],
+    outro: "For the process behind both closings, see how double closing works in the DMV. The published fee schedule applies in Arlington the same as everywhere else we fund."
+  },
     blurb: "Postwar brick colonials and Cape Cods near the Rosslyn-Ballston corridor. Teardown and renovation demand at some of the region's strongest price points."
   },
   {
@@ -144,6 +177,20 @@ const rawCities: City[] = [
       { q: "What does double close funding cost?", a: "Fees follow the schedule on this page: 1% on deals up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Extra days, a second closing company, or special paperwork carry the additional fees listed in the schedule." },
       { q: "Can you fund EMD or a Morby Method deal?", a: "Yes. Earnest money deposits and Morby Method structures are part of what we fund. Morby Method fees are paid upfront by Zelle or wire, as listed in the fee schedule above." }
     ],
+    nearby: ["arlington", "springfield", "woodbridge"],
+  summaryFees: true,
+  summarySteps: true,
+  scenario: {
+    title: "A local checklist for Alexandria deals",
+    intro: "Alexandria files tend to hinge on jurisdiction. Run through this checklist before you set a closing date; the closing team can confirm anything specific to your parcel.",
+    items: [
+      "Confirm the actual jurisdiction on the parcel. Many addresses with an Alexandria mailing name sit in Fairfax County rather than the City of Alexandria, and the two jurisdictions keep separate land records and their own transfer and recordation tax schedules.",
+      "For homes in the Old Town historic district, confirm your end buyer's renovation plans account for the district's design review of exterior changes.",
+      "For a condominium or townhouse, order the association documents early so both closings are not waiting on the resale package.",
+      "Send both prices, the address and the closing office with your submission so the jurisdiction question is settled before closing day."
+    ],
+    outro: "For the process behind both closings, see how double closing works in the DMV. The published fee schedule applies in Alexandria the same as everywhere else we fund."
+  },
     blurb: "Old Town brick rowhouses and Del Ray charm at the top of the range, condos and townhouses on the West End at lower entry points."
   },
   {
@@ -178,6 +225,7 @@ const rawCities: City[] = [
       { q: "What does double close funding cost?", a: "Fees follow the schedule on this page: 1% on deals up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Extra days, a second closing company, or special paperwork carry the additional fees listed in the schedule." },
       { q: "Can you fund EMD or a Morby Method deal?", a: "Yes. Earnest money deposits and Morby Method structures are part of what we fund. Morby Method fees are paid upfront by Zelle or wire, as listed in the fee schedule above." }
     ],
+    nearby: ["fair-oaks", "oakton", "manassas"],
     blurb: "Western Fairfax townhouse and single family subdivisions along Route 28 and 29. Lower price points than close-in Fairfax, steady flip demand."
   },
   {
@@ -212,6 +260,7 @@ const rawCities: City[] = [
       { q: "What does double close funding cost?", a: "Fees follow the schedule on this page: 1% on deals up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Extra days, a second closing company, or special paperwork carry the additional fees listed in the schedule." },
       { q: "Can you fund EMD or a Morby Method deal?", a: "Yes. Earnest money deposits and Morby Method structures are part of what we fund. Morby Method fees are paid upfront by Zelle or wire, as listed in the fee schedule above." }
     ],
+    nearby: ["sterling", "mclean", "fair-oaks"],
     blurb: "Original 1960s and 70s cluster townhomes around Lake Anne, with Silver Line and Reston Town Center demand pulling renovated resales."
   },
   {
@@ -246,6 +295,7 @@ const rawCities: City[] = [
       { q: "What does funding cost?", a: "Fees follow the published schedule: 1% up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Additional days cost 0.2% per day, and using two closing companies carries a 1.75% fee." },
       { q: "Do you fund earnest money deposits?", a: "Yes, EMD funding is available, and we also fund Morby Method structures with fees paid upfront by Zelle or wire." }
     ],
+    nearby: ["arlington", "oakton", "reston"],
     blurb: "Postwar homes on large lots from Chain Bridge Road to Langley. Builder and luxury renovation buyers at the top of the regional price range."
   },
   {
@@ -280,6 +330,7 @@ const rawCities: City[] = [
       { q: "What does double close funding cost?", a: "Fees follow the schedule on this page: 1% on deals up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Extra days, a second closing company, or special paperwork carry the additional fees listed in the schedule." },
       { q: "Can you fund EMD or a Morby Method deal?", a: "Yes. Earnest money deposits and Morby Method structures are part of what we fund. Morby Method fees are paid upfront by Zelle or wire, as listed in the fee schedule above." }
     ],
+    nearby: ["springfield", "annandale", "fair-oaks"],
     blurb: "1970s and 80s colonials and split levels around Burke Lake Park. Predictable floor plans and steady family buyer demand."
   },
   {
@@ -314,6 +365,7 @@ const rawCities: City[] = [
       { q: "What does double close funding cost?", a: "Fees follow the schedule on this page: 1% on deals up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Extra days, a second closing company, or special paperwork carry the additional fees listed in the schedule." },
       { q: "Can you fund EMD or a Morby Method deal?", a: "Yes. Earnest money deposits and Morby Method structures are part of what we fund. Morby Method fees are paid upfront by Zelle or wire, as listed in the fee schedule above." }
     ],
+    nearby: ["springfield", "burke", "west-falls-church"],
     blurb: "1950s and 60s ramblers and split levels along Little River Turnpike, inside the Beltway. Original owner inventory with strong renovation demand."
   },
   {
@@ -348,6 +400,7 @@ const rawCities: City[] = [
       { q: "What does double close funding cost?", a: "Fees follow the schedule on this page: 1% on deals up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Extra days, a second closing company, or special paperwork carry the additional fees listed in the schedule." },
       { q: "Can you fund EMD or a Morby Method deal?", a: "Yes. Earnest money deposits and Morby Method structures are part of what we fund. Morby Method fees are paid upfront by Zelle or wire, as listed in the fee schedule above." }
     ],
+    nearby: ["fair-oaks", "mclean", "reston"],
     blurb: "Larger lots and mature trees between Vienna and Fairfax City. Older homes that draw land focused renovators and builders."
   },
   {
@@ -382,6 +435,7 @@ const rawCities: City[] = [
       { q: "What does double close funding cost?", a: "Fees follow the schedule on this page: 1% on deals up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Extra days, a second closing company, or special paperwork carry the additional fees listed in the schedule." },
       { q: "Can you fund EMD or a Morby Method deal?", a: "Yes. Earnest money deposits and Morby Method structures are part of what we fund. Morby Method fees are paid upfront by Zelle or wire, as listed in the fee schedule above." }
     ],
+    nearby: ["oakton", "centreville", "burke"],
     blurb: "1980s and 90s colonials and townhouses along Route 50 near Fair Oaks Mall. Dated finishes, commuter friendly location, steady retail demand."
   },
   {
@@ -416,6 +470,7 @@ const rawCities: City[] = [
       { q: "What does funding cost?", a: "Fees follow the published schedule: 1% up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Additional days cost 0.2% per day, and using two closing companies carries a 1.75% fee." },
       { q: "Do you fund earnest money deposits?", a: "Yes, EMD funding is available, and we also fund Morby Method structures with fees paid upfront by Zelle or wire." }
     ],
+    nearby: ["mclean", "annandale", "arlington"],
     blurb: "1940s through 60s ramblers on quarter acre lots near the West Falls Church Metro. One of the county's hottest teardown corridors."
   },
   {
@@ -450,6 +505,7 @@ const rawCities: City[] = [
       { q: "What does double close funding cost?", a: "Fees follow the schedule on this page: 1% on deals up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Extra days, a second closing company, or special paperwork carry the additional fees listed in the schedule." },
       { q: "Can you fund EMD or a Morby Method deal?", a: "Yes. Earnest money deposits and Morby Method structures are part of what we fund. Morby Method fees are paid upfront by Zelle or wire, as listed in the fee schedule above." }
     ],
+    nearby: ["annandale", "burke", "alexandria"],
     blurb: "1950s through 70s ramblers and split levels near the Mixing Bowl and the Franconia-Springfield Metro. Commuter demand at approachable prices."
   },
   {
@@ -484,6 +540,7 @@ const rawCities: City[] = [
       { q: "What does double close funding cost?", a: "Fees follow the schedule on this page: 1% on deals up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Extra days, a second closing company, or special paperwork carry the additional fees listed in the schedule." },
       { q: "Can you fund EMD or a Morby Method deal?", a: "Yes. Earnest money deposits and Morby Method structures are part of what we fund. Morby Method fees are paid upfront by Zelle or wire, as listed in the fee schedule above." }
     ],
+    nearby: ["ashburn", "sterling", "south-riding"],
     blurb: "The Loudoun county seat. Historic King Street homes in town, 1980s through 2000s colonials and townhouses in the surrounding subdivisions."
   },
   {
@@ -518,6 +575,7 @@ const rawCities: City[] = [
       { q: "What does double close funding cost?", a: "Fees follow the schedule on this page: 1% on deals up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Extra days, a second closing company, or special paperwork carry the additional fees listed in the schedule." },
       { q: "Can you fund EMD or a Morby Method deal?", a: "Yes. Earnest money deposits and Morby Method structures are part of what we fund. Morby Method fees are paid upfront by Zelle or wire, as listed in the fee schedule above." }
     ],
+    nearby: ["sterling", "leesburg", "south-riding"],
     blurb: "Loudoun's growth engine. First generation planned communities hitting their renovation cycle just as the Silver Line arrived."
   },
   {
@@ -552,6 +610,7 @@ const rawCities: City[] = [
       { q: "What does double close funding cost?", a: "Fees follow the schedule on this page: 1% on deals up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Extra days, a second closing company, or special paperwork carry the additional fees listed in the schedule." },
       { q: "Can you fund EMD or a Morby Method deal?", a: "Yes. Earnest money deposits and Morby Method structures are part of what we fund. Morby Method fees are paid upfront by Zelle or wire, as listed in the fee schedule above." }
     ],
+    nearby: ["ashburn", "centreville", "linton-hall"],
     blurb: "Master planned Loudoun community on Route 50. First generation homes hitting their renovation window with clear comps."
   },
   {
@@ -586,6 +645,7 @@ const rawCities: City[] = [
       { q: "What does double close funding cost?", a: "Fees follow the schedule on this page: 1% on deals up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Extra days, a second closing company, or special paperwork carry the additional fees listed in the schedule." },
       { q: "Can you fund EMD or a Morby Method deal?", a: "Yes. Earnest money deposits and Morby Method structures are part of what we fund. Morby Method fees are paid upfront by Zelle or wire, as listed in the fee schedule above." }
     ],
+    nearby: ["ashburn", "reston", "leesburg"],
     blurb: "Loudoun's original suburb. 1960s Sterling Park ramblers and Route 7 townhouses at the county's most approachable entry prices."
   },
   {
@@ -620,6 +680,7 @@ const rawCities: City[] = [
       { q: "What does double close funding cost?", a: "Fees follow the schedule on this page: 1% on deals up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Extra days, a second closing company, or special paperwork carry the additional fees listed in the schedule." },
       { q: "Can you fund EMD or a Morby Method deal?", a: "Yes. Earnest money deposits and Morby Method structures are part of what we fund. Morby Method fees are paid upfront by Zelle or wire, as listed in the fee schedule above." }
     ],
+    nearby: ["woodbridge", "lake-ridge", "linton-hall"],
     blurb: "Prince William's original planned community along Dale Boulevard. Uniform postwar stock, easy comps, and one of the region's deepest value buyer pools."
   },
   {
@@ -654,6 +715,7 @@ const rawCities: City[] = [
       { q: "What does double close funding cost?", a: "Fees follow the schedule on this page: 1% on deals up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Extra days, a second closing company, or special paperwork carry the additional fees listed in the schedule." },
       { q: "Can you fund EMD or a Morby Method deal?", a: "Yes. Earnest money deposits and Morby Method structures are part of what we fund. Morby Method fees are paid upfront by Zelle or wire, as listed in the fee schedule above." }
     ],
+    nearby: ["woodbridge", "dale-city", "linton-hall"],
     blurb: "Early 1970s planned community on the Occoquan Reservoir. Wooded lots, strong amenity package, and loyal family buyer demand."
   },
   {
@@ -688,6 +750,7 @@ const rawCities: City[] = [
       { q: "What does double close funding cost?", a: "Fees follow the schedule on this page: 1% on deals up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Extra days, a second closing company, or special paperwork carry the additional fees listed in the schedule." },
       { q: "Can you fund EMD or a Morby Method deal?", a: "Yes. Earnest money deposits and Morby Method structures are part of what we fund. Morby Method fees are paid upfront by Zelle or wire, as listed in the fee schedule above." }
     ],
+    nearby: ["dale-city", "lake-ridge", "manassas"],
     blurb: "The county's biggest market, from Potomac Mills down Route 1 to Occoquan. Varied older stock at the commuter shed's lowest entry prices."
   },
   {
@@ -722,6 +785,7 @@ const rawCities: City[] = [
       { q: "What does double close funding cost?", a: "Fees follow the schedule on this page: 1% on deals up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Extra days, a second closing company, or special paperwork carry the additional fees listed in the schedule." },
       { q: "Can you fund EMD or a Morby Method deal?", a: "Yes. Earnest money deposits and Morby Method structures are part of what we fund. Morby Method fees are paid upfront by Zelle or wire, as listed in the fee schedule above." }
     ],
+    nearby: ["manassas", "centreville", "dale-city"],
     blurb: "Newer subdivisions around Gainesville and the Virginia Gateway shops. Cosmetic flip inventory at move up price points."
   },
   {
@@ -756,6 +820,7 @@ const rawCities: City[] = [
       { q: "What does double close funding cost?", a: "Fees follow the schedule on this page: 1% on deals up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Extra days, a second closing company, or special paperwork carry the additional fees listed in the schedule." },
       { q: "Can you fund EMD or a Morby Method deal?", a: "Yes. Earnest money deposits and Morby Method structures are part of what we fund. Morby Method fees are paid upfront by Zelle or wire, as listed in the fee schedule above." }
     ],
+    nearby: ["linton-hall", "centreville", "woodbridge"],
     blurb: "Independent city with a walkable Old Town, postwar neighborhoods, and newer townhomes near the battlefield. Entry prices well below Fairfax."
   },
   {
@@ -790,6 +855,7 @@ const rawCities: City[] = [
       { q: "What does double close funding cost?", a: "Fees follow the schedule on this page: 1% on deals up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Extra days, a second closing company, or special paperwork carry the additional fees listed in the schedule." },
       { q: "Can you fund EMD or a Morby Method deal?", a: "Yes. Earnest money deposits and Morby Method structures are part of what we fund. Morby Method fees are paid upfront by Zelle or wire, as listed in the fee schedule above." }
     ],
+    nearby: ["gaithersburg", "montgomery-village", "clarksburg"],
     blurb: "Upper Montgomery's volume market. 1970s and 80s townhome villages along I-270 at the county's friendliest entry prices."
   },
   {
@@ -824,6 +890,20 @@ const rawCities: City[] = [
       { q: "What does double close funding cost?", a: "Fees follow the schedule on this page: 1% on deals up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Extra days, a second closing company, or special paperwork carry the additional fees listed in the schedule." },
       { q: "Can you fund EMD or a Morby Method deal?", a: "Yes. Earnest money deposits and Morby Method structures are part of what we fund. Morby Method fees are paid upfront by Zelle or wire, as listed in the fee schedule above." }
     ],
+    nearby: ["wheaton", "aspen-hill", "bethesda"],
+  summaryFees: true,
+  summarySteps: true,
+  scenario: {
+    title: "A local checklist for Silver Spring deals",
+    intro: "Silver Spring files tend to hinge on county paperwork and block-level pricing rather than the headline numbers. Run through this checklist before you set a closing date; the closing team can confirm anything specific to your parcel.",
+    items: [
+      "Confirm how the contract describes jurisdiction. Silver Spring is not an incorporated city, so land records and transfer and recordation taxes run through Montgomery County, and older paperwork may use neighborhood names like Forest Glen or Colesville instead of Silver Spring.",
+      "For a condominium or townhouse sale, order the association documents early. Resale packages can take days to arrive, and both closings wait on them.",
+      "Verify your end buyer has walked the specific block. The housing stock shifts quickly from the streets near downtown Silver Spring to the postwar colonials and ramblers further out, and buyers price to the block.",
+      "Send both prices, the address and the closing office with your submission so the review covers the county tax lines up front."
+    ],
+    outro: "For the process behind both closings, see how double closing works in the DMV. The published fee schedule applies in Silver Spring the same as everywhere else we fund."
+  },
     blurb: "1920s through 50s colonials, Tudors and Cape Cods just over the DC line, with a revitalized downtown and Red Line access."
   },
   {
@@ -858,6 +938,7 @@ const rawCities: City[] = [
       { q: "What does double close funding cost?", a: "Fees follow the schedule on this page: 1% on deals up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Extra days, a second closing company, or special paperwork carry the additional fees listed in the schedule." },
       { q: "Can you fund EMD or a Morby Method deal?", a: "Yes. Earnest money deposits and Morby Method structures are part of what we fund. Morby Method fees are paid upfront by Zelle or wire, as listed in the fee schedule above." }
     ],
+    nearby: ["germantown", "montgomery-village", "rockville"],
     blurb: "The I-270 corridor's balanced market: older townhomes and split levels, the Kentlands, and employer driven resale demand."
   },
   {
@@ -892,6 +973,7 @@ const rawCities: City[] = [
       { q: "What does funding cost?", a: "Fees follow the published schedule: 1% up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Additional days cost 0.2% per day, and using two closing companies carries a 1.75% fee." },
       { q: "Do you fund earnest money deposits?", a: "Yes, EMD funding is available, and we also fund Morby Method structures with fees paid upfront by Zelle or wire." }
     ],
+    nearby: ["north-bethesda", "potomac", "silver-spring"],
     blurb: "Maryland's premium renovation and teardown market. Postwar homes on good lots near downtown and NIH, with buyers at the metro's strongest prices."
   },
   {
@@ -926,6 +1008,7 @@ const rawCities: City[] = [
       { q: "What does double close funding cost?", a: "Fees follow the schedule on this page: 1% on deals up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Extra days, a second closing company, or special paperwork carry the additional fees listed in the schedule." },
       { q: "Can you fund EMD or a Morby Method deal?", a: "Yes. Earnest money deposits and Morby Method structures are part of what we fund. Morby Method fees are paid upfront by Zelle or wire, as listed in the fee schedule above." }
     ],
+    nearby: ["north-bethesda", "gaithersburg", "aspen-hill"],
     blurb: "The county seat. Twinbrook's 1950s ramblers near the Red Line, with King Farm and Town Square setting the renovated comps."
   },
   {
@@ -960,6 +1043,7 @@ const rawCities: City[] = [
       { q: "What does double close funding cost?", a: "Fees follow the schedule on this page: 1% on deals up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Extra days, a second closing company, or special paperwork carry the additional fees listed in the schedule." },
       { q: "Can you fund EMD or a Morby Method deal?", a: "Yes. Earnest money deposits and Morby Method structures are part of what we fund. Morby Method fees are paid upfront by Zelle or wire, as listed in the fee schedule above." }
     ],
+    nearby: ["wheaton", "rockville", "olney"],
     blurb: "Mid 1950s through early 70s ramblers and split levels between Rockville and Olney. Original owner inventory on generous lots."
   },
   {
@@ -994,6 +1078,7 @@ const rawCities: City[] = [
       { q: "What does double close funding cost?", a: "Fees follow the schedule on this page: 1% on deals up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Extra days, a second closing company, or special paperwork carry the additional fees listed in the schedule." },
       { q: "Can you fund EMD or a Morby Method deal?", a: "Yes. Earnest money deposits and Morby Method structures are part of what we fund. Morby Method fees are paid upfront by Zelle or wire, as listed in the fee schedule above." }
     ],
+    nearby: ["silver-spring", "aspen-hill", "chillum"],
     blurb: "1940s through 60s Cape Cods and ramblers at the end of the Red Line, with county reinvestment in downtown Wheaton lifting the comps."
   },
   {
@@ -1028,6 +1113,7 @@ const rawCities: City[] = [
       { q: "What does funding cost?", a: "Fees follow the published schedule: 1% up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Additional days cost 0.2% per day, and using two closing companies carries a 1.75% fee." },
       { q: "Do you fund earnest money deposits?", a: "Yes, EMD funding is available, and we also fund Morby Method structures with fees paid upfront by Zelle or wire." }
     ],
+    nearby: ["bethesda", "rockville", "potomac"],
     blurb: "The White Flint corridor around Pike and Rose, being rebuilt in real time. Postwar homes next to the county's most valuable new development."
   },
   {
@@ -1062,6 +1148,7 @@ const rawCities: City[] = [
       { q: "What does funding cost?", a: "Fees follow the published schedule: 1% up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Additional days cost 0.2% per day, and using two closing companies carries a 1.75% fee." },
       { q: "Do you fund earnest money deposits?", a: "Yes, EMD funding is available, and we also fund Morby Method structures with fees paid upfront by Zelle or wire." }
     ],
+    nearby: ["bethesda", "rockville", "north-bethesda"],
     blurb: "Montgomery's estate market. Older colonials and ramblers on one and two acre lots between Potomac Village and the C&O Canal."
   },
   {
@@ -1096,6 +1183,7 @@ const rawCities: City[] = [
       { q: "What does double close funding cost?", a: "Fees follow the schedule on this page: 1% on deals up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Extra days, a second closing company, or special paperwork carry the additional fees listed in the schedule." },
       { q: "Can you fund EMD or a Morby Method deal?", a: "Yes. Earnest money deposits and Morby Method structures are part of what we fund. Morby Method fees are paid upfront by Zelle or wire, as listed in the fee schedule above." }
     ],
+    nearby: ["aspen-hill", "clarksburg", "gaithersburg"],
     blurb: "Upcounty family market around the Olney Theatre and town center. 1970s through 90s colonials hitting their renovation cycle."
   },
   {
@@ -1130,6 +1218,7 @@ const rawCities: City[] = [
       { q: "What does double close funding cost?", a: "Fees follow the schedule on this page: 1% on deals up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Extra days, a second closing company, or special paperwork carry the additional fees listed in the schedule." },
       { q: "Can you fund EMD or a Morby Method deal?", a: "Yes. Earnest money deposits and Morby Method structures are part of what we fund. Morby Method fees are paid upfront by Zelle or wire, as listed in the fee schedule above." }
     ],
+    nearby: ["gaithersburg", "germantown", "rockville"],
     blurb: "One of the county's original planned communities around Lake Whetstone. Uniform 1960s through 80s stock at midcounty's friendliest prices."
   },
   {
@@ -1164,6 +1253,7 @@ const rawCities: City[] = [
       { q: "What does double close funding cost?", a: "Fees follow the schedule on this page: 1% on deals up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Extra days, a second closing company, or special paperwork carry the additional fees listed in the schedule." },
       { q: "Can you fund EMD or a Morby Method deal?", a: "Yes. Earnest money deposits and Morby Method structures are part of what we fund. Morby Method fees are paid upfront by Zelle or wire, as listed in the fee schedule above." }
     ],
+    nearby: ["germantown", "olney", "gaithersburg"],
     blurb: "One of the county's fastest growing communities on upper I-270. Newer colonials and townhouses suited to quick cosmetic flips."
   },
   {
@@ -1198,6 +1288,7 @@ const rawCities: City[] = [
       { q: "What does double close funding cost?", a: "Fees follow the schedule on this page: 1% on deals up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Extra days, a second closing company, or special paperwork carry the additional fees listed in the schedule." },
       { q: "Can you fund EMD or a Morby Method deal?", a: "Yes. Earnest money deposits and Morby Method structures are part of what we fund. Morby Method fees are paid upfront by Zelle or wire, as listed in the fee schedule above." }
     ],
+    nearby: ["laurel", "college-park", "clinton"],
     blurb: "Levitt era ranchers and colonials on the lettered streets, plus newer subdivisions near Bowie Town Center. Simple flips, steady commuter demand."
   },
   {
@@ -1232,6 +1323,7 @@ const rawCities: City[] = [
       { q: "What does double close funding cost?", a: "Fees follow the schedule on this page: 1% on deals up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Extra days, a second closing company, or special paperwork carry the additional fees listed in the schedule." },
       { q: "Can you fund EMD or a Morby Method deal?", a: "Yes. Earnest money deposits and Morby Method structures are part of what we fund. Morby Method fees are paid upfront by Zelle or wire, as listed in the fee schedule above." }
     ],
+    nearby: ["waldorf", "bowie", "washington-dc"],
     blurb: "Larger lot living along Branch Avenue near Joint Base Andrews. 1970s through 90s homes with room to add value."
   },
   {
@@ -1266,6 +1358,7 @@ const rawCities: City[] = [
       { q: "What does double close funding cost?", a: "Fees follow the schedule on this page: 1% on deals up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Extra days, a second closing company, or special paperwork carry the additional fees listed in the schedule." },
       { q: "Can you fund EMD or a Morby Method deal?", a: "Yes. Earnest money deposits and Morby Method structures are part of what we fund. Morby Method fees are paid upfront by Zelle or wire, as listed in the fee schedule above." }
     ],
+    nearby: ["silver-spring", "college-park", "washington-dc"],
     blurb: "Right on the DC line near Fort Totten. 1940s through 60s ramblers and brick colonials at a fraction of District prices."
   },
   {
@@ -1300,6 +1393,7 @@ const rawCities: City[] = [
       { q: "What does double close funding cost?", a: "Fees follow the schedule on this page: 1% on deals up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Extra days, a second closing company, or special paperwork carry the additional fees listed in the schedule." },
       { q: "Can you fund EMD or a Morby Method deal?", a: "Yes. Earnest money deposits and Morby Method structures are part of what we fund. Morby Method fees are paid upfront by Zelle or wire, as listed in the fee schedule above." }
     ],
+    nearby: ["chillum", "laurel", "bowie"],
     blurb: "University anchored demand. Old Town and Route 1 corridor homes drawing both renovators and student rental investors."
   },
   {
@@ -1334,6 +1428,7 @@ const rawCities: City[] = [
       { q: "What does double close funding cost?", a: "Fees follow the schedule on this page: 1% on deals up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Extra days, a second closing company, or special paperwork carry the additional fees listed in the schedule." },
       { q: "Can you fund EMD or a Morby Method deal?", a: "Yes. Earnest money deposits and Morby Method structures are part of what we fund. Morby Method fees are paid upfront by Zelle or wire, as listed in the fee schedule above." }
     ],
+    nearby: ["college-park", "bowie", "olney"],
     blurb: "Halfway between DC and Baltimore on Route 1. Historic Main Street character, MARC commuters, and newer corridor townhomes."
   },
   {
@@ -1368,6 +1463,7 @@ const rawCities: City[] = [
       { q: "What does double close funding cost?", a: "Fees follow the schedule on this page: 1% on deals up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Extra days, a second closing company, or special paperwork carry the additional fees listed in the schedule." },
       { q: "Can you fund EMD or a Morby Method deal?", a: "Yes. Earnest money deposits and Morby Method structures are part of what we fund. Morby Method fees are paid upfront by Zelle or wire, as listed in the fee schedule above." }
     ],
+    nearby: ["clinton", "bowie", "washington-dc"],
     blurb: "Charles County's center of gravity around St. Charles and Crain Highway. Some of the metro's lowest entry prices inside the commuter shed."
   },
   {
@@ -1402,6 +1498,7 @@ const rawCities: City[] = [
       { q: "What does double close funding cost?", a: "Fees follow the schedule on this page: 1% on deals up to $500K with a $1,000 minimum, 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Extra days, a second closing company, or special paperwork carry the additional fees listed in the schedule." },
       { q: "Can you fund EMD or a Morby Method deal?", a: "Yes. Earnest money deposits and Morby Method structures are part of what we fund. Morby Method fees are paid upfront by Zelle or wire, as listed in the fee schedule above." }
     ],
+    nearby: ["clarksburg", "germantown", "gaithersburg"],
     blurb: "The I-270 corridor's second city. Historic Carroll Creek rowhomes downtown, newer subdivisions absorbing Montgomery County spillover."
   }
 ];
