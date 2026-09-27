@@ -1,0 +1,65 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CityContent from '../components/CityContent.astro';
+import { home } from '../data/metro';
+import { brand, domain, cities } from '../data/cities';
+
+const jsonld = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": brand,
+    "url": `https://${domain}/`
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FinancialService",
+    "name": brand,
+    "url": `https://${domain}/`,
+    "areaServed": [
+      { "@type": "City", "name": "Washington", "containedInPlace": { "@type": "State", "name": "District of Columbia" } },
+      { "@type": "State", "name": "Maryland" },
+      { "@type": "State", "name": "Virginia" }
+    ],
+    "description": "Transactional double close funding for real estate wholesalers across the Washington DC metro area."
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "serviceType": "Wholesale double close transactional funding",
+    "provider": { "@type": "FinancialService", "name": brand },
+    "areaServed": cities.map((c) => ({ "@type": "City", "name": c.name, "containedInPlace": { "@type": "State", "name": c.stateName } }))
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": home.faqs.map((f) => ({
+      "@type": "Question",
+      "name": f.q,
+      "acceptedAnswer": { "@type": "Answer", "text": f.a }
+    }))
+  }
+];
+---
+<Base title={home.title} description={home.description} path="/" jsonld={jsonld}>
+  <Header base="" />
+  <main>
+    <CityContent
+      h1Bottom={home.h1Bottom}
+      hero={home.hero}
+      localNoteTitle={home.localNoteTitle}
+      localNote={home.localNote}
+      whyHeading={home.whyHeading}
+      why={home.why}
+      steps={home.steps}
+      faqs={home.faqs}
+      formName={home.formName}
+      cityName="DMV"
+      stateAbbr="DMV"
+      showCityGrid={true}
+    />
+  </main>
+  <Footer />
+</Base>
