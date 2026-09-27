@@ -6,6 +6,7 @@ import CityContent from '../components/CityContent.astro';
 import { home } from '../data/metro';
 import { brand, domain, cities } from '../data/cities';
 
+const businessId = `https://${domain}/#business`;
 const jsonld = [
   {
     "@context": "https://schema.org",
@@ -16,20 +17,17 @@ const jsonld = [
   {
     "@context": "https://schema.org",
     "@type": "FinancialService",
+    "@id": businessId,
     "name": brand,
     "url": `https://${domain}/`,
-    "areaServed": [
-      { "@type": "City", "name": "Washington", "containedInPlace": { "@type": "State", "name": "District of Columbia" } },
-      { "@type": "State", "name": "Maryland" },
-      { "@type": "State", "name": "Virginia" }
-    ],
+    "areaServed": cities.map((c) => ({ "@type": "City", "name": c.name, "containedInPlace": { "@type": "State", "name": c.stateName } })),
     "description": "Transactional double close funding for real estate wholesalers across the Washington DC metro area."
   },
   {
     "@context": "https://schema.org",
     "@type": "Service",
     "serviceType": "Wholesale double close transactional funding",
-    "provider": { "@type": "FinancialService", "name": brand },
+    "provider": { "@id": businessId },
     "areaServed": cities.map((c) => ({ "@type": "City", "name": c.name, "containedInPlace": { "@type": "State", "name": c.stateName } }))
   },
   {
