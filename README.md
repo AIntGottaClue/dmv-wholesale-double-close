@@ -33,7 +33,7 @@ Option B: upload the contents of `dist/` directly as a static site.
 
 ## Fill before launch
 
-1. `YOUR-DOMAIN.com` in `astro.config.mjs` and `src/data/cities.ts` (used for canonical URLs, Open Graph, sitemap, and JSON-LD).
+1. `dmv.wholesaledoubleclose.click` in `astro.config.mjs` and `src/data/cities.ts` (used for canonical URLs, Open Graph, sitemap, and JSON-LD).
 2. `G-XXXXXXXXXX` in `src/layouts/Base.astro` (GA4 measurement ID, two spots in the same snippet).
 3. The AirChatty tracking ID in `src/layouts/Base.astro` currently matches the Atlanta sites. Confirm it is the ID you want for this site.
 
