@@ -1,0 +1,87 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FaqAccordion from '../components/FaqAccordion.astro';
+import { brand, domain } from '../data/cities';
+
+const faqs = [
+  { q: "Is a double closing legal in the DMV?", a: "Double closings are a common structure for investor transactions across DC, Maryland and Virginia. Each side is a separate, fully documented purchase and sale that runs through a title company or closing office. Legal questions about your specific contract belong with the settlement professional on your file." },
+  { q: "Do both closings have to happen on the same day?", a: "They are typically scheduled back to back on the same day, and transactional funding is priced for that short hold. If the resale side moves to another day, the additional day fee in the published schedule applies for each extra day the funds are out." },
+  { q: "Who chooses the closing office?", a: "Often the title company your end buyer already uses can run both transactions. What matters most is an office that handles investor double closings regularly and is comfortable coordinating the two files in sequence, whether it sits in DC, Maryland or Virginia." },
+  { q: "What does the funding fee cover?", a: "The fee covers the use of the funds for your purchase side, and it follows the published schedule based on the funding amount. The full schedule and worked examples are on the transactional funding fees page." },
+  { q: "Can I assign the contract instead of double closing?", a: "Sometimes. Assignment works when the contract allows it and everyone is comfortable seeing the fee. The double close vs assignment comparison walks through when each structure tends to fit." }
+];
+
+const jsonld = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "How Double Closing Works in the DMV",
+    "url": `https://${domain}/how-double-closing-works-in-the-dmv/`,
+    "description": "The A-B and B-C sequence of a double closing across DC, Maryland and Virginia, the paperwork each side needs, and where transactional funding fits.",
+    "isPartOf": { "@type": "WebSite", "name": brand, "url": `https://${domain}/` }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map((f) => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } }))
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": `https://${domain}/` },
+      { "@type": "ListItem", "position": 2, "name": "How Double Closing Works in the DMV", "item": `https://${domain}/how-double-closing-works-in-the-dmv/` }
+    ]
+  }
+];
+---
+<Base title="How Double Closing Works in the DMV | DMV Wholesale Double Close" description="The A-B and B-C sequence of a double closing across DC, Maryland and Virginia, the paperwork each side needs, and where transactional funding fits." path="/how-double-closing-works-in-the-dmv/" jsonld={jsonld}>
+  <Header base="/" />
+  <main id="main">
+    <section class="guide-hero"><div class="container"><h1 class="guide-hero__title">How Double Closing Works in the DMV</h1></div></section>
+
+    <section class="section"><div class="container guide-prose">
+      <p>A double closing is two separate real estate transactions on the same property, usually on the same day. In the first transaction you buy the property from the seller. In the second you resell it to your end buyer, and the proceeds from that resale repay the funding on your purchase.</p>
+      <p>Because you take title in between, your purchase price and your resale price stay on separate closing statements. Your wholesale spread is the difference between the two transactions, not a fee line on a single assignment contract.</p>
+    </div></section>
+
+    <section class="section section--tint"><div class="container guide-prose">
+      <h2 class="section__title">The A-B and B-C transactions</h2>
+      <p>The first transaction is called A-B: the seller (A) sells to you (B) under your purchase contract. The second is B-C: you (B) sell to your end buyer (C) under a separate contract. Each transaction gets its own settlement statement, its own signatures and its own disbursement.</p>
+      <p>The two files are coordinated so the B-C resale funds immediately after the A-B purchase. That sequencing is what lets you complete both sides without bringing your own cash to the table, as long as the funding for the A-B side is in place.</p>
+    </div></section>
+
+    <section class="section"><div class="container guide-prose">
+      <h2 class="section__title">How closings run across DC, Maryland and Virginia</h2>
+      <p>The DMV spans three jurisdictions with different closing customs. DC closings typically run through a title company or settlement attorney, Maryland files can close with a title company or a closing attorney, and Virginia closings usually involve a title company or settlement agent. One office can usually handle both transactions back to back, and the office your end buyer already uses is often the simplest choice.</p>
+      <p>Each jurisdiction also charges its own transfer and recordation taxes, so both sides of a double closing carry their own tax line items, and the contract usually allocates who pays which share. Confirm the exact sequence and costs with the closing team on your deal, because each office has its own preferences for how the two files are scheduled.</p>
+    </div></section>
+
+    <section class="section section--tint"><div class="container guide-prose">
+      <h2 class="section__title">The paperwork a file usually needs</h2>
+      <p>The closing office prepares and confirms exactly what your file requires. Across most DMV double closings, the paperwork includes:</p>
+      <ul class="guide-list">
+        <li>A signed purchase and sale agreement for each side of the deal</li>
+        <li>Title work on the property, ordered by the closing office</li>
+        <li>A settlement statement for each transaction showing its own price and costs</li>
+        <li>Wire instructions and any payoff figures tied to the property</li>
+        <li>Entity documents if you are buying through an LLC</li>
+        <li>Association, estate or probate documents when the property calls for them</li>
+      </ul>
+      <p>Files with complete paperwork move fastest. Sending everything you have when you submit the deal keeps questions from surfacing at the closing table.</p>
+    </div></section>
+
+    <section class="section"><div class="container guide-prose">
+      <h2 class="section__title">Where transactional funding fits</h2>
+      <p>Transactional funding covers your A-B purchase so the deal does not depend on your own cash. On closing day the funds are wired for your purchase side, your resale closes right after, and the funding plus its fee come out of the resale proceeds. The fee follows the published schedule on the <a href="/transactional-funding-fees/">transactional funding fees</a> page.</p>
+      <p>Funding can be ready in as little as 24 hours once we have the deal details and the closing office information. If you are still deciding between structures, the <a href="/double-close-vs-assignment/">double close vs assignment</a> guide compares the two honestly.</p>
+    </div></section>
+
+    <section class="section section--tint" id="faq"><div class="container faq__inner"><h2 class="section__title">Common questions about the process</h2><FaqAccordion items={faqs} /></div></section>
+
+    <section class="final-cta"><div class="final-cta__graphic" aria-hidden="true"></div><div class="container final-cta__inner"><h2 class="final-cta__title">Have a deal ready for funding?</h2><p class="final-cta__text">Submit the deal and we will review the numbers. Funding can be ready in as little as 24 hours once we have the deal details and closing office information.</p><a class="btn btn--accent btn--lg" href="/#deal-form">Submit Your Deal <span aria-hidden="true">→</span></a></div></section>
+  </main>
+  <Footer />
+</Base>
