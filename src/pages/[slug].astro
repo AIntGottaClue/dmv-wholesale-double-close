@@ -10,24 +10,22 @@ export function getStaticPaths() {
 }
 const { city } = Astro.props;
 
+const businessId = `https://${domain}/#business`;
 const jsonld = [
   {
     "@context": "https://schema.org",
     "@type": "FinancialService",
+    "@id": businessId,
     "name": brand,
-    "url": `https://${domain}/${city.slug}/`,
-    "areaServed": {
-      "@type": "City",
-      "name": city.name,
-      "containedInPlace": { "@type": "State", "name": city.stateName }
-    },
-    "description": `Transactional double close funding for real estate wholesalers in ${city.name}.`
+    "url": `https://${domain}/`,
+    "areaServed": cities.map((c) => ({ "@type": "City", "name": c.name, "containedInPlace": { "@type": "State", "name": c.stateName } })),
+    "description": "Transactional double close funding for real estate wholesalers across the Washington DC metro area."
   },
   {
     "@context": "https://schema.org",
     "@type": "Service",
     "serviceType": "Wholesale double close transactional funding",
-    "provider": { "@type": "FinancialService", "name": brand },
+    "provider": { "@id": businessId },
     "areaServed": { "@type": "City", "name": city.name, "containedInPlace": { "@type": "State", "name": city.stateName } }
   },
   {
@@ -64,6 +62,9 @@ const jsonld = [
       formName={city.formName}
       cityName={city.name}
       stateAbbr={city.state}
+      summaryFees={city.summaryFees}
+      summarySteps={city.summarySteps}
+      scenario={city.scenario}
     />
   </main>
   <Footer />
