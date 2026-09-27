@@ -26,7 +26,7 @@ export interface City {
 }
 
 export const brand = "DMV Wholesale Double Close";
-export const domain = "YOUR-DOMAIN.com";
+export const domain = "dmv.wholesaledoubleclose.click";
 
 export const trustBar: string[] = [
   "Transactional funding up to $1.5M",
