@@ -1,18 +1,29 @@
 ---
-import { trustBar, fees, cities } from '../data/cities';
+import { trustBar, cities } from '../data/cities';
 import type { Step, Faq, Scenario } from '../data/cities';
+import { getFeeTerms, renderFees, feeSchedule } from '../data/feeTerms';
 import DealForm from './DealForm.astro';
 import FaqAccordion from './FaqAccordion.astro';
 interface Props { h1Bottom:string;hero:string;localNoteTitle:string;localNote:string;whyHeading:string;why:string[];steps:Step[];faqs:Faq[];formName:string;cityName:string;stateAbbr:string;showCityGrid?:boolean;summaryFees?:boolean;summarySteps?:boolean;scenario?:Scenario; }
-const {h1Bottom,hero,localNoteTitle,localNote,whyHeading,why,steps,faqs,formName,cityName,stateAbbr,showCityGrid=false,summaryFees=false,summarySteps=false,scenario}=Astro.props;
+const {h1Bottom,localNoteTitle,whyHeading,formName,cityName,stateAbbr,showCityGrid=false,summaryFees=false,summarySteps=false}=Astro.props;
+const feeTerms = await getFeeTerms();
+const r = (s:string)=>renderFees(s,feeTerms);
+const fees = feeSchedule(feeTerms);
+const hero = r(Astro.props.hero);
+const localNote = r(Astro.props.localNote);
+const why = Astro.props.why.map(r);
+const steps = Astro.props.steps.map((s)=>({title:r(s.title),text:r(s.text)}));
+const faqs = Astro.props.faqs.map((f)=>({q:r(f.q),a:r(f.a)}));
+const scenario = Astro.props.scenario ? {title:r(Astro.props.scenario.title),intro:r(Astro.props.scenario.intro),items:Astro.props.scenario.items.map(r),outro:r(Astro.props.scenario.outro)} : undefined;
+const trustBarRendered = trustBar.map(r);
 const locationValue = showCityGrid ? "Homepage" : (cityName.includes(",") ? cityName : `${cityName}, ${stateAbbr}`);
 const nearbyCities = showCityGrid ? [] : (cities.find(c=>c.name===cityName)?.nearby ?? []).map(slug=>cities.find(c=>c.slug===slug)).filter(Boolean);
 const placeLabel = (c: (typeof cities)[number]) => c.name.includes(",") ? c.name : `${c.name}, ${c.state}`;
 ---
 <section class="hero" aria-labelledby="hero-title"><div class="hero__graphic" aria-hidden="true"><span class="hero__stripe hero__stripe--1"></span><span class="hero__stripe hero__stripe--2"></span><span class="hero__stripe hero__stripe--3"></span></div><div class="container hero__inner"><div class="hero__content"><h1 class="hero__title" id="hero-title"><span class="hero__line">Wholesale Double Close Funding</span><span class="hero__line hero__line--accent">{h1Bottom}</span></h1><p class="hero__subtitle">{hero}</p></div><DealForm formName={formName} cityName={cityName} locationValue={locationValue} /></div></section>
-<section class="trust-bar" aria-label="Funding highlights"><div class="container trust-bar__inner">{trustBar.map(t=><div class="trust-bar__item"><span class="trust-bar__icon" aria-hidden="true">✓</span>{t}</div>)}</div></section>
+<section class="trust-bar" aria-label="Funding highlights"><div class="container trust-bar__inner">{trustBarRendered.map(t=><div class="trust-bar__item"><span class="trust-bar__icon" aria-hidden="true">✓</span>{t}</div>)}</div></section>
 {summaryFees ? (
-<section class="section" id="funding-fees"><div class="container"><h2 class="section__title">Clear fees. No surprises.</h2><p class="section__intro">Fees start at 1% on funding up to $500K with a $1,000 minimum, step to 1.25% from $500K to $1M, and 1.50% from $1M to $1.5M. Additional days, a second closing company and special paperwork carry the extra fees listed in the schedule. The full schedule with worked examples is on the <a href="/transactional-funding-fees/">transactional funding fees</a> page.</p></div></section>
+<section class="section" id="funding-fees"><div class="container"><h2 class="section__title">Clear fees. No surprises.</h2><p class="section__intro">Fees start at {feeTerms.tier1Rate} on funding up to {feeTerms.tier1Cap} with a {feeTerms.tier1Minimum} minimum, step to {feeTerms.tier2Rate} from {feeTerms.tier1Cap} to {feeTerms.tier2Cap}, and {feeTerms.tier3Rate} from {feeTerms.tier2Cap} to {feeTerms.fundingMax}. Additional days, a second closing company and special paperwork carry the extra fees listed in the schedule. The full schedule with worked examples is on the <a href="/transactional-funding-fees/">transactional funding fees</a> page.</p></div></section>
 ) : (
 <section class="section" id="funding-fees"><div class="container"><h2 class="section__title">Clear fees. No surprises.</h2><p class="section__intro">Fees are flat and published so you can underwrite the funding cost into your offer before you tie up the property. The math behind each line is on the <a href="/transactional-funding-fees/">transactional funding fees</a> page.</p><div class="funding-fees__layout"><div class="fee-table-wrap"><table class="fee-table"><caption class="sr-only">Double-close funding fee schedule</caption><thead><tr><th scope="col">Funding Amount</th><th scope="col">Fee or Detail</th></tr></thead><tbody>{fees.map(f=><tr><th scope="row">{f.label}</th><td>{f.detail}</td></tr>)}</tbody></table></div></div></div></section>
 )}
