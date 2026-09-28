@@ -5,6 +5,10 @@ import Footer from '../components/Footer.astro';
 import CityContent from '../components/CityContent.astro';
 import { home } from '../data/metro';
 import { brand, domain, cities } from '../data/cities';
+import { getFeeTerms, renderFees } from '../data/feeTerms';
+
+const feeTerms = await getFeeTerms();
+const r = (s: string) => renderFees(s, feeTerms);
 
 const businessId = `https://${domain}/#business`;
 const jsonld = [
@@ -35,13 +39,13 @@ const jsonld = [
     "@type": "FAQPage",
     "mainEntity": home.faqs.map((f) => ({
       "@type": "Question",
-      "name": f.q,
-      "acceptedAnswer": { "@type": "Answer", "text": f.a }
+      "name": r(f.q),
+      "acceptedAnswer": { "@type": "Answer", "text": r(f.a) }
     }))
   }
 ];
 ---
-<Base title={home.title} description={home.description} path="/" jsonld={jsonld}>
+<Base title={home.title} description={r(home.description)} path="/" jsonld={jsonld}>
   <Header base="" />
   <main>
     <CityContent

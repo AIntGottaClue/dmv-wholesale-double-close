@@ -4,11 +4,13 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import CityContent from '../components/CityContent.astro';
 import { cities, brand, domain } from '../data/cities';
+import { getFeeTerms, renderFees } from '../data/feeTerms';
 
-export function getStaticPaths() {
-  return cities.map((c) => ({ params: { slug: c.slug }, props: { city: c } }));
-}
-const { city } = Astro.props;
+const city = cities.find((c) => c.slug === Astro.params.slug);
+if (!city) return new Response('Not found', { status: 404 });
+
+const feeTerms = await getFeeTerms();
+const r = (s: string) => renderFees(s, feeTerms);
 
 const businessId = `https://${domain}/#business`;
 const jsonld = [
@@ -33,8 +35,8 @@ const jsonld = [
     "@type": "FAQPage",
     "mainEntity": city.faqs.map((f) => ({
       "@type": "Question",
-      "name": f.q,
-      "acceptedAnswer": { "@type": "Answer", "text": f.a }
+      "name": r(f.q),
+      "acceptedAnswer": { "@type": "Answer", "text": r(f.a) }
     }))
   },
   {
@@ -47,7 +49,7 @@ const jsonld = [
   }
 ];
 ---
-<Base title={city.title} description={city.description} path={`/${city.slug}/`} jsonld={jsonld}>
+<Base title={city.title} description={r(city.description)} path={`/${city.slug}/`} jsonld={jsonld}>
   <Header base={`/${city.slug}`} />
   <main>
     <CityContent
